@@ -20,7 +20,8 @@ class AdminAuthenticated
         if (Auth::check()) {
             // if user is not admin take him to his dashboard
             if (Auth::user()->isUser()) {
-                return redirect(env("FRONTEND_URL"));
+                Auth::guard('web')->logout();
+                return back();
             }
             // allow admin to proceed with request
             else if (Auth::user()->isAdmin()) {
