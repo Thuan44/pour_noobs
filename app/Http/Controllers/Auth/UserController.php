@@ -2,22 +2,29 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
     public function register(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', 'min:4'],
         ]);
+
+        if ($validator->fails()) {
+            return response([
+                'message'  => 'There was an error during the process'
+            ], 409);
+        }
 
         $user = User::create([
             'name' => $request->name,
@@ -31,7 +38,6 @@ class UserController extends Controller
             'user' => $user,
             'token' => $token
         ];
-
         return response($response, 201);
     }
 
@@ -48,7 +54,7 @@ class UserController extends Controller
         // Check password
         if (!$user || !Hash::check($credentials['password'], $user->password)) {
             return response([
-                'mes sage'  => 'Bad credentials'
+                'message'  => 'Bad credentials'
             ], 401);
         }
 
@@ -60,7 +66,7 @@ class UserController extends Controller
             'token' => $token
         ];
 
-        return response($response, 201);
+        return response($response, 200);
     }
 
     public function logout(Request $request)
