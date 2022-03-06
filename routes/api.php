@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,8 @@ use App\Http\Controllers\Auth\UserController;
  */
 Route::post('register', [UserController::class, 'register'])->name('register');
 Route::post('login', [UserController::class, 'login'])->name('login');
+Route::get('courses', [CourseController::class, 'getCourses'])->name('getCourses');
+Route::get('courses/{id}', [CourseController::class, 'getCourseByID'])->name('getCourseByID');
 
 
 /**
