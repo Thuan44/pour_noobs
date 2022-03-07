@@ -10,7 +10,7 @@ class CourseController extends Controller
 {
     public function getCourses()
     {
-        $courses = DB::table('courses')->get();
+        $courses = Course::with('category')->get();
 
         return response($courses, 200);
     }

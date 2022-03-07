@@ -29,4 +29,12 @@ class Course extends Model
         'price',
         'category_id',
     ];
+
+    /**
+     * Get the category of the course.
+     */
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category');
+    }
 }

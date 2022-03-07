@@ -16,18 +16,26 @@ use App\Http\Controllers\CourseController;
 |
 */
 
-/**
- * Public routes
- */
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
+// Authentication
 Route::post('register', [UserController::class, 'register'])->name('register');
 Route::post('login', [UserController::class, 'login'])->name('login');
+
+// Courses
 Route::get('courses', [CourseController::class, 'getCourses'])->name('getCourses');
 Route::get('courses/{id}', [CourseController::class, 'getCourseByID'])->name('getCourseByID');
 
 
-/**
- * Protected routes
- */
+/*
+|--------------------------------------------------------------------------
+| Private Routes with Sanctum
+|--------------------------------------------------------------------------
+*/
+// Authentication
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [UserController::class, 'logout'])->name('logout');
 });

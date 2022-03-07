@@ -13,11 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/', function () {
     return view('auth.login');
 });
 
-
+/*
+|--------------------------------------------------------------------------
+| Private Routes with middleware admin
+|--------------------------------------------------------------------------
+*/
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'admin'])->name('dashboard');
