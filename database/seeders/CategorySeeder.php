@@ -19,24 +19,28 @@ class CategorySeeder extends Seeder
             'id' => 1,
             'name' => "Gaming",
             'description' => "Apprenez-tous les secrets des pro-gamers",
+            'image' => "gaming.png",
         ]);
 
         DB::table('categories')->insert([
             'id' => 2,
             'name' => "Coaching",
             'description' => "Apprenez-tous les secrets des managers d'équipes e-sport",
+            'image' => "coaching.png",
         ]);
 
         DB::table('categories')->insert([
             'id' => 3,
             'name' => "Live Streaming",
             'description' => "Apprenez-tous les secrets des streamers",
+            'image' => "livestreaming.png",
         ]);
 
         DB::table('categories')->insert([
             'id' => 4,
             'name' => "Santé e-sport",
             'description' => "Apprenez-tous les secrets des professionnels de la santé spécialisés dans l'e-sport",
+            'image' => "health.png",
         ]);
     }
 }
