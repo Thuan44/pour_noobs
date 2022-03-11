@@ -2,9 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\UserController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Auth\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,11 @@ Route::get('categories', [CategoryController::class, 'getCategories'])->name('ge
 | Private Routes with Sanctum
 |--------------------------------------------------------------------------
 */
-// Authentication
 Route::middleware(['auth:sanctum'])->group(function () {
+
+    // Authentication
     Route::post('logout', [UserController::class, 'logout'])->name('logout');
+
+    // Cart
+    Route::post('cart/{userID}', [CartController::class, 'createOrGetCart'])->name('createOrGetCart');
 });
