@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Cart_Course;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -22,6 +23,26 @@ class CartController extends Controller
             return response($cart, 201);
         } else {
             return response($cart, 200);
+        }
+    }
+
+    public function addCourseToCart($cartID, $courseID)
+    {
+        $cart_course = new Cart_Course;
+        $courseAlreadyIntoCart = false;
+        if ($cart_course
+            ->where('cart_id', $cartID)
+            ->where('course_id', $courseID)->exists()
+        ) {
+            $courseAlreadyIntoCart = true;
+        }
+
+        $cart_course = $cart_course->firstOrCreate(['cart_id' => $cartID, 'course_id' => $courseID]);
+
+        if ($courseAlreadyIntoCart) {
+            return response($cart_course, 200);
+        } else {
+            return response($cart_course, 201);
         }
     }
 }

@@ -45,5 +45,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [UserController::class, 'logout'])->name('logout');
 
     // Cart
-    Route::post('cart/{userID}', [CartController::class, 'createOrGetCart'])->name('createOrGetCart');
+    Route::post('cart/createOrGetCart/{userID}', [CartController::class, 'createOrGetCart'])->name('createOrGetCart');
+    Route::post('cart/addCourseToCart/cart/{cartID}/course/{courseID}', [CartController::class, 'addCourseToCart'])->name('addCourseToCart');
 });
