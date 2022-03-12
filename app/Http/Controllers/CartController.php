@@ -45,4 +45,11 @@ class CartController extends Controller
             return response($cart_course, 201);
         }
     }
+
+    public function getCartByID($cartID)
+    {
+        $cart = Cart::with('courses')->find($cartID);
+
+        return response($cart, 200);
+    }
 }
