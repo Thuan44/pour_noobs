@@ -24,4 +24,12 @@ class Cart extends Model
     protected $fillable = [
         'user_id',
     ];
+
+    /**
+     * Get courses in the cart.
+     */
+    public function courses()
+    {
+        return $this->belongsToMany(\App\Models\Course::class);
+    }
 }
