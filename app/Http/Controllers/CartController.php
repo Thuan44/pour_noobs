@@ -46,6 +46,19 @@ class CartController extends Controller
         }
     }
 
+    public function destroyCourseFromCart($cartID, $courseID)
+    {
+        $cart_course = Cart_Course::where('cart_id', $cartID)
+            ->where('course_id', $courseID);
+
+        if ($cart_course->exists()) {
+            $cart_course->delete();
+            return response(['message' => 'Course deleted successfully from cart'], 200);
+        } else {
+            return response(['message' => 'The course does not exist'], 404);
+        }
+    }
+
     public function getCartByID($cartID)
     {
         $cart = Cart::with('courses')->find($cartID);
