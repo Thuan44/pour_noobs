@@ -28,9 +28,13 @@ Route::get('/', function () {
 | Private Routes with middleware admin
 |--------------------------------------------------------------------------
 */
+// Authentication
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'admin'])->name('dashboard');
+
+// Courses
+Route::post('courses/store', [CourseController::class, 'store'])->name('storeCourse');
 
 // Route::middleware(['auth', 'admin'])->group(function () {
 //     Route::get('/dashboard', function () {
