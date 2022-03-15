@@ -16,7 +16,7 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
+if (file_exists($maintenance = __DIR__ . '/../storage/framework/maintenance.php')) {
     require $maintenance;
 }
 
@@ -31,7 +31,7 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once __DIR__ . '/../bootstrap/app.php';
 
 $kernel = $app->make(Kernel::class);
 
@@ -53,3 +53,20 @@ $response = $kernel->handle(
 )->send();
 
 $kernel->terminate($request, $response);
+
+/*
+|--------------------------------------------------------------------------
+| Connect to the Heroku database
+|--------------------------------------------------------------------------
+*/
+
+//Get Heroku ClearDB connection information
+// $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+// $cleardb_server = $cleardb_url["host"];
+// $cleardb_username = $cleardb_url["user"];
+// $cleardb_password = $cleardb_url["pass"];
+// $cleardb_db = substr($cleardb_url["path"], 1);
+// $active_group = 'default';
+// $query_builder = TRUE;
+// // Connect to DB
+// $conn = mysqli_connect($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
