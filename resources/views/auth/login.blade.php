@@ -2,7 +2,9 @@
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <div class="login-logo-container">
+                    <img class="login-logo w-100" src="{{ asset('assets/img/logo_vertical_darkbg.png') }}" />
+                </div>
             </a>
         </x-slot>
 
@@ -10,7 +12,7 @@
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-form-validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ route('login') }}">
             @csrf

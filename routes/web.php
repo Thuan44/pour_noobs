@@ -34,7 +34,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'admin'])->name('dashboard');
 
 // Courses
-Route::post('courses/store', [CourseController::class, 'store'])->name('storeCourse');
+Route::get('/courses', function () {
+    return view('courses');
+})->middleware(['auth', 'admin'])->name('courses');
 
 // Route::middleware(['auth', 'admin'])->group(function () {
 //     Route::get('/dashboard', function () {

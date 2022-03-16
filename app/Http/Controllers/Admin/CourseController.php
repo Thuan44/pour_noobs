@@ -11,16 +11,6 @@ class CourseController extends Controller
 {
     public function store(Request $request)
     {
-
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'author' => 'required|string|max:255',
-            'image' => 'required|string|max:255',
-            'price' => 'required',
-            'category_id' => 'required',
-        ]);
-
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:1500'],
