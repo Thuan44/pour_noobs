@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Course;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,7 +36,8 @@ Route::get('/dashboard', function () {
 
 // Courses
 Route::get('/courses', function () {
-    return view('courses');
+    $courses = Course::all();
+    return view('courses', compact('courses'));
 })->middleware(['auth', 'admin'])->name('courses');
 
 // Route::middleware(['auth', 'admin'])->group(function () {

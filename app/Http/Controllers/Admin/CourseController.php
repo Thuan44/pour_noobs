@@ -22,10 +22,6 @@ class CourseController extends Controller
 
         if ($validator->fails()) {
             $error = $validator->errors();
-            // return response([
-            //     'message'  => 'There was an error during the process',
-            //     'errors' => $error
-            // ], 409);
             return redirect('courses')->withErrors($error);
         }
 
@@ -38,11 +34,14 @@ class CourseController extends Controller
             'category_id' => $request->category_id,
         ]);
 
-        $response = [
-            'course' => $course,
-        ];
-
-        // return response($response, 201);
         return redirect('courses')->with('success', 'Formation créée avec succès !');
+    }
+
+    public function destroy($courseID)
+    {
+        $course = Course::where('id', $courseID)->firstOrFail();
+        $course->delete();
+
+        return redirect('courses')->with('success', 'Formation supprimée avec succès !');
     }
 }
