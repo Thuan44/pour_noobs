@@ -21,9 +21,12 @@ class CourseController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response([
-                'message'  => 'There was an error during the process'
-            ], 409);
+            $error = $validator->errors();
+            // return response([
+            //     'message'  => 'There was an error during the process',
+            //     'errors' => $error
+            // ], 409);
+            return redirect('courses')->withErrors($error);
         }
 
         $course = Course::create([
@@ -39,6 +42,7 @@ class CourseController extends Controller
             'course' => $course,
         ];
 
-        return response($response, 201);
+        // return response($response, 201);
+        return redirect('courses')->with('success', 'Formation créée avec succès !');
     }
 }
