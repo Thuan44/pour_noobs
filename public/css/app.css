@@ -11,6 +11,11 @@
   color: #040806 !important;
 }
 
+.destroy-btn {
+  background-color: #F34545 !important;
+  color: #fff !important;
+}
+
 .login-logo-container {
   width: 100px;
 }

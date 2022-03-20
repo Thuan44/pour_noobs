@@ -16,8 +16,8 @@
                     </h3>
 
                     <form method="GET" action="{{ route('courses') }}"">
-                        <select class="     rounded-md shadow-sm border-gray-300 mb-6 w-full" name="selectedCourse"
-                        id="selectedCourse" onchange='this.form.submit()'>
+                        <select class="           rounded-md shadow-sm border-gray-300 mb-6 w-full"
+                        name="selectedCourse" id="selectedCourse" onchange='this.form.submit()'>
                         <option value="">Choisissez une formation</option>
                         @foreach ($courses as $course)
                             <option value="<?= $course->id ?>"
@@ -125,7 +125,7 @@
                         <div class="flex justify-start">
                             <form method="POST" action="{{ route('destroyCourse', $selectedCourse->id) }}"">
                                 @method('delete')
-                                <x-button class="                  destroy-btn text-white bg-red-600 hover:bg-red-800">
+                                <x-button class="   destroy-btn">
                                 {{ __('Supprimer') }}
                                 </x-button>
                             </form>
