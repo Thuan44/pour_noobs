@@ -37,7 +37,9 @@ Route::get('/dashboard', function () {
 // Courses
 Route::get('/courses', function () {
     $courses = Course::all();
-    return view('courses', compact('courses'));
+    $selectedCourse = isset($_GET['selectedCourse']) ? Course::find($_GET['selectedCourse']) : '';
+
+    return view('courses', compact('courses', 'selectedCourse'));
 })->middleware(['auth', 'admin'])->name('courses');
 
 // Route::middleware(['auth', 'admin'])->group(function () {

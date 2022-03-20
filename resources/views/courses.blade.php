@@ -1,7 +1,3 @@
-@php
-$selectedCourse = $_GET['selectedCourse'] ?? '';
-@endphp
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -20,13 +16,12 @@ $selectedCourse = $_GET['selectedCourse'] ?? '';
                     </h3>
 
                     <form method="GET" action="{{ route('courses') }}"">
-                        @csrf
-                        <select class="        rounded-md shadow-sm border-gray-300 mb-6 w-full" name="selectedCourse"
+                        <select class="     rounded-md shadow-sm border-gray-300 mb-6 w-full" name="selectedCourse"
                         id="selectedCourse" onchange='this.form.submit()'>
                         <option value="">Choisissez une formation</option>
                         @foreach ($courses as $course)
                             <option value="<?= $course->id ?>"
-                                <?= isset($selectedCourse) && $selectedCourse == $course->id ? 'selected' : '' ?>>
+                                <?= !empty($selectedCourse) && $selectedCourse->id == $course->id ? 'selected' : '' ?>>
                                 <?= $course->name ?></option>
                         @endforeach
                         </select>
@@ -54,75 +49,83 @@ $selectedCourse = $_GET['selectedCourse'] ?? '';
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('storeCourse') }}">
-                        @csrf
-
-                        <!-- Course name -->
-                        <div>
-                            <x-label for="name" :value="__('Nom de la formation')" />
-
-                            <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
-                                autofocus />
-                        </div>
-
-                        <!-- Description -->
-                        <div class="mt-4">
-                            <x-label for="description" :value="__('Description')" />
-
-                            <x-textarea id="description" class="block mt-1 w-full" name="description" />
-                        </div>
-
-                        <!-- Coach -->
-                        <div class="mt-4">
-                            <x-label for="image" :value="__('Coach de la formation')" />
-
-                            <x-input id="author" class="block mt-1 w-full" type="text" name="author"
-                                :value="old('author')" autofocus />
-                        </div>
-
-                        <!-- Image -->
-                        <div class="mt-4">
-                            <x-label for="image" :value="__('Image de la formation')" />
-
-                            <x-input id="image" class="block mt-1 w-full" type="text" name="image" :value="old('image')"
-                                autofocus />
-                        </div>
-
-                        <!-- Price -->
-                        <div class="mt-4">
-                            <x-label for="price" :value="__('Prix de la formation')" />
-
-                            <x-input id="price" class="block mt-1 w-full" type="text" name="price" :value="old('price')"
-                                autofocus />
-                        </div>
-
-                        <!-- Category ID -->
-                        <div class="mt-4">
-                            <x-label for="category_id" :value="__('Catégorie de la formation')" />
-
-                            <x-input id="category_id" class="block mt-1 w-full" type="number" name="category_id"
-                                :value="old('category_id')" autofocus />
-                        </div>
-
-                        <div class="flex items-center justify-end mt-4">
-                            @if (empty($selectedCourse))
-                                <x-button class="ml-3 submit-btn">
-                                    {{ __('Valider la création') }}
-                                </x-button>
-                            @endif
-
-
-                        </div>
-                    </form>
-
                     @if (!empty($selectedCourse))
-                        <div class="flex justify-end">
+                        <form method="POST" action="{{ route('updateCourse', $selectedCourse->id) }}">
+                            @csrf
+                            @method('PUT')
+                        @else
+                            <form method="POST" action="{{ route('storeCourse') }}">
+                                @csrf
+                    @endif
+
+                    <!-- Course name -->
+                    <div>
+                        <x-label for="name" :value="__(' Nom de la formation')" />
+
+                        <x-input id="name" class="block mt-1 w-full" type="text" name="name"
+                            :value="empty($selectedCourse) ? old('name') : $selectedCourse->name" autofocus />
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mt-4">
+                        <x-label for="description" :value="__('Description')" />
+
+                        <x-textarea id="description" class="block mt-1 w-full" name="description"
+                            :selected-course="$selectedCourse" />
+                    </div>
+
+                    <!-- Coach -->
+                    <div class="mt-4">
+                        <x-label for="author" :value="__('Coach de la formation')" />
+
+                        <x-input id="author" class="block mt-1 w-full" type="text" name="author"
+                            :value="empty($selectedCourse) ? old('author') : $selectedCourse->author" autofocus />
+                    </div>
+
+                    <!-- Image -->
+                    <div class="mt-4">
+                        <x-label for="image" :value="__('Image de la formation')" />
+
+                        <x-input id="image" class="block mt-1 w-full" type="text" name="image"
+                            :value="empty($selectedCourse) ? old('image') : $selectedCourse->image" autofocus />
+                    </div>
+
+                    <!-- Price -->
+                    <div class="mt-4">
+                        <x-label for="price" :value="__('Prix de la formation')" />
+
+                        <x-input id="price" class="block mt-1 w-full" type="text" name="price"
+                            :value="empty($selectedCourse) ? old('price') : $selectedCourse->price" autofocus />
+                    </div>
+
+                    <!-- Category ID -->
+                    <div class="mt-4">
+                        <x-label for="category_id" :value="__('Catégorie de la formation')" />
+
+                        <x-input id="category_id" class="block mt-1 w-full" type="number" name="category_id" :value="empty($selectedCourse) ? old('category
+                        _id') : $selectedCourse->category_id" autofocus />
+                    </div>
+
+                    <div class="flex items-center justify-end mt-4">
+                        @if (empty($selectedCourse))
+                            <x-button class="ml-3 submit-btn">
+                                {{ __('Valider la création') }}
+                            </x-button>
+                        @else
                             <x-button class="ml-3 modify-btn">
                                 {{ __('Modifier') }}
                             </x-button>
-                            <form method="POST" action="{{ route('destroyCourse', $selectedCourse) }}"">
+                        @endif
+
+
+                    </div>
+                    </form>
+
+                    @if (!empty($selectedCourse))
+                        <div class="flex justify-start">
+                            <form method="POST" action="{{ route('destroyCourse', $selectedCourse->id) }}"">
                                 @method('delete')
-                                <x-button class="  ml-3 destroy-btn text-white bg-red-600 hover:bg-red-800">
+                                <x-button class="                  destroy-btn text-white bg-red-600 hover:bg-red-800">
                                 {{ __('Supprimer') }}
                                 </x-button>
                             </form>

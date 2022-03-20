@@ -47,6 +47,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Courses
     Route::post('courses/store', [adminCourseController::class, 'store'])->name('storeCourse');
+    Route::put('courses/update/{courseID}', [adminCourseController::class, 'update'])->name('updateCourse');
     Route::delete('courses/destroy/{courseID}', [adminCourseController::class, 'destroy'])->name('destroyCourse');
 
     // Cart

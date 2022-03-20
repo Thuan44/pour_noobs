@@ -37,6 +37,33 @@ class CourseController extends Controller
         return redirect('courses')->with('success', 'Formation créée avec succès !');
     }
 
+    public function update(Request $request, $courseID)
+    {
+        $course = Course::find($courseID);
+
+        if ($course) {
+            $validator = Validator::make($request->all(), [
+                'name' => ['required', 'string', 'max:255'],
+                'description' => ['required', 'string', 'max:1500'],
+                'author' => ['required', 'string', 'max:255'],
+                'image' => ['required', 'string', 'max:255'],
+                'price' => ['required'],
+                'category_id' => ['required'],
+            ]);
+
+            if ($validator->fails()) {
+                $error = $validator->errors();
+                return back()->withErrors($error);
+            }
+
+            $course->update($request->all());
+
+            return redirect('courses')->with('success', 'Formation modifiée avec succès !');
+        } else {
+            return response(['message' => 'No course found with the id ' . $courseID], 400);
+        }
+    }
+
     public function destroy($courseID)
     {
         $course = Course::where('id', $courseID)->firstOrFail();
