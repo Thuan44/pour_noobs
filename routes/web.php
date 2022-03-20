@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Course;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,9 +29,18 @@ Route::get('/', function () {
 | Private Routes with middleware admin
 |--------------------------------------------------------------------------
 */
+// Authentication
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'admin'])->name('dashboard');
+
+// Courses
+Route::get('/courses', function () {
+    $courses = Course::all();
+    $selectedCourse = isset($_GET['selectedCourse']) ? Course::find($_GET['selectedCourse']) : '';
+
+    return view('courses', compact('courses', 'selectedCourse'));
+})->middleware(['auth', 'admin'])->name('courses');
 
 // Route::middleware(['auth', 'admin'])->group(function () {
 //     Route::get('/dashboard', function () {
