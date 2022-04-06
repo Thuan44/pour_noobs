@@ -40,8 +40,7 @@ Route::get('/courses', function () {
     $selectedCourse = isset($_GET['selectedCourse']) ? Course::find($_GET['selectedCourse']) : '';
 
     return view('courses', compact('courses', 'selectedCourse'));
-})->name('courses');
-// ->middleware(['auth', 'admin'])
+})->middleware(['auth', 'admin'])->name('courses');
 
 // Route::middleware(['auth', 'admin'])->group(function () {
 //     Route::get('/dashboard', function () {
