@@ -41,6 +41,7 @@ Route::get('categories', [CategoryController::class, 'getCategories'])->name('ge
 |--------------------------------------------------------------------------
 */
 Route::post('courses/store', [adminCourseController::class, 'store'])->name('storeCourse');
+
 Route::middleware(['auth:sanctum'])->group(function () {
 
     // Authentication
