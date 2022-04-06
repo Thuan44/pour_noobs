@@ -41,7 +41,6 @@ Route::get('categories', [CategoryController::class, 'getCategories'])->name('ge
 |--------------------------------------------------------------------------
 */
 
-Route::post('courses/store', [adminCourseController::class, 'store'])->name('storeCourse');
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
@@ -49,6 +48,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [UserController::class, 'logout'])->name('logout');
 
     // Courses
+    Route::post('courses/store', [adminCourseController::class, 'store'])->name('storeCourse');
     Route::put('courses/update/{courseID}', [adminCourseController::class, 'update'])->name('updateCourse');
     Route::delete('courses/destroy/{courseID}', [adminCourseController::class, 'destroy'])->name('destroyCourse');
 
