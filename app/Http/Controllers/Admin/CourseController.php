@@ -34,6 +34,8 @@ class CourseController extends Controller
             'category_id' => $request->category_id,
         ]);
 
+        echo $course;
+
         return redirect('courses')->with('success', 'Formation créée avec succès !');
     }
 
