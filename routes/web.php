@@ -32,8 +32,7 @@ Route::get('/', function () {
 // Authentication
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
-// ->middleware(['auth', 'admin'])
+})->middleware(['auth', 'admin'])->name('dashboard');
 
 // Courses
 Route::get('/courses', function () {
