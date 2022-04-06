@@ -2,6 +2,7 @@
 
 use App\Models\Course;
 use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\Auth\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,12 +42,6 @@ Route::get('/courses', function () {
 
     return view('courses', compact('courses', 'selectedCourse'));
 })->middleware(['auth', 'admin'])->name('courses');
-
-// Route::middleware(['auth', 'admin'])->group(function () {
-//     Route::get('/dashboard', function () {
-//         return view('dashboard')->name('dashboard');
-//     });
-// });
 
 
 require __DIR__ . '/auth.php';

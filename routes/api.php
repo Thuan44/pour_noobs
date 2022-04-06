@@ -28,6 +28,10 @@ use App\Http\Controllers\Auth\UserController;
 Route::post('register', [UserController::class, 'register'])->name('register');
 Route::post('login', [UserController::class, 'login'])->name('login');
 
+// Github Authentication
+Route::post('/sign-in/github', [UserController::class, 'github'])->name('githubSignin');
+Route::post('/sign-in/github/redirect', [UserController::class, 'githubRedirect'])->name('githubRedirect');
+
 // Courses
 Route::get('courses', [CourseController::class, 'getCourses'])->name('getCourses');
 Route::get('courses/{id}', [CourseController::class, 'getCourseByID'])->name('getCourseByID');

@@ -43,11 +43,11 @@
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex flex-col items-center justify-end mt-4 w-full">
                 {{-- <a href="{{ route('register') }}"
                     class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a> --}}
 
-                <x-button class="ml-3">
+                <x-button class="w-full text-center">
                     {{ __('Log in') }}
                 </x-button>
             </div>

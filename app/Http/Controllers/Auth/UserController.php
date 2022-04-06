@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -76,5 +78,35 @@ class UserController extends Controller
         return [
             'message' => 'Logged out'
         ];
+    }
+
+    public function github()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function githubRedirect()
+    {
+        $user = Socialite::driver('github')->user();
+
+        // if this user doesn't exist, add then
+        // if they do, get the model
+        // either way, authenticate the user and redirect
+
+        $user = User::firstOrCreate([
+            'email' => $user->email
+        ], [
+            'name' => $user->name,
+            'password' => $user->Hash::make(Str::random(24)),
+        ]);
+
+        $token = $user->createToken('userToken')->plainTextToken;
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return response($response, 200);
     }
 }
