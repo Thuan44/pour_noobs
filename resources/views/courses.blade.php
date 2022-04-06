@@ -16,7 +16,7 @@
                     </h3>
 
                     <form method="GET" action="{{ route('courses') }}"">
-                        <select class="            rounded-md shadow-sm border-gray-300 mb-6 w-full"
+                        <select class="              rounded-md shadow-sm border-gray-300 mb-6 w-full"
                         name="selectedCourse" id="selectedCourse" onchange='this.form.submit()'>
                         <option value="">Choisissez une formation</option>
                         @foreach ($courses as $course)
@@ -40,7 +40,7 @@
                             <x-form-validation-errors class="mb-4" />
                         </div>
                     @endif
-
+                    <?php var_dump(session()->has('success')); ?>
                     <!-- Validation Success -->
                     @if (session()->has('success'))
                         <div class="p-4 mb-4 text-sm text-center text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
@@ -124,7 +124,7 @@
                         <div class="flex justify-start">
                             <form method="POST" action="{{ route('destroyCourse', $selectedCourse->id) }}"">
                                 @method('delete')
-                                <x-button class="                 destroy-btn">
+                                <x-button class="                   destroy-btn">
                                 {{ __('Supprimer') }}
                                 </x-button>
                             </form>
